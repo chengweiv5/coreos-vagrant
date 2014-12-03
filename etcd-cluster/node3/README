@@ -1,0 +1,7 @@
+We'll create a etcd cluster with 3 node(coreos) to provides etcd service
+for other worker nodes(coreos).
+
+We do not use discovery from discovery.etcd.io because that will make
+our coreos slug, so we start a single etcd in local host. This is the
+single point of failure I think, so we'll later configure each etcd
+node to discover peer themselves.

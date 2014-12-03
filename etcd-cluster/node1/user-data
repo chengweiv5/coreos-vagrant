@@ -1,0 +1,33 @@
+#cloud-config
+
+coreos:
+  etcd:
+    # generate a new token for each unique cluster from https://discovery.etcd.io/new
+    # WARNING: replace each time you 'vagrant destroy'
+    # make sure etcd in coreos can access the outside etcd service
+    discovery: http://172.17.8.1:4001/v2/keys/0a2f157d-b1e0-439e-8394-bc2df0a865ce
+    addr: 172.17.8.10:4001
+    peer-addr: 172.17.8.10:7001
+  fleet:
+    public-ip: $public_ipv4
+    metadata: "role=service"
+  units:
+    - name: etcd.service
+      command: start
+    - name: fleet.service
+      command: start
+    # whenever vagrant up it start assign ip from 172.17.8.101 and 192.168.56.101
+    # so this will conflict with workers.
+    # we should setup static ip for etcd cluster nodes. However, it also has the
+    # IP assigned by vagrant, like 172.17.8.101
+    # eth0 is the NAT device 10.0.2.15
+    - name: 00-eth1.network
+      runtime: true
+      content: |
+        [Match]
+        Name=eth1
+
+        [Network]
+        #DNS=?
+        Address=172.17.8.10/24
+        Gateway=172.17.8.1
