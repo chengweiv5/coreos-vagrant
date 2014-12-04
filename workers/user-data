@@ -22,3 +22,9 @@ coreos:
 
         [Install]
         WantedBy=sockets.target
+    - name: fleet.socket
+      drop-ins:
+        - name: 30-ListenStream.conf
+          content: |
+            [Socket]
+            ListenStream=49153
