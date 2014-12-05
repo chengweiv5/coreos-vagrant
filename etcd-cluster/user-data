@@ -16,9 +16,9 @@ coreos:
       command: start
     - name: fleet.service
       command: start
-    - name: fleet.socket
-      drop-ins:
-        - name: 30-ListenStream.conf
-          content: |
-            [Socket]
-            ListenStream=49153
+
+write_files:
+  - path: /etc/systemd/system/fleet.socket.d/30-ListenStream.conf
+    content: |
+      [Socket]
+      ListenStream=49153
