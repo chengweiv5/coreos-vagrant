@@ -16,6 +16,12 @@ coreos:
       command: start
     - name: fleet.service
       command: start
+  oem:
+    id: chengwei
+    name: Chengwei Yang
+    version-id: 1.0.0
+    home-url: http://www.chengweiyang.cn
+    bug-report-url: http://www.chengweiyang.cn
 
 write_files:
   - path: /etc/systemd/system/fleet.socket.d/30-ListenStream.conf
