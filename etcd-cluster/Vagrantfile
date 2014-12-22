@@ -87,7 +87,7 @@ Vagrant.configure("2") do |config|
 
       # etcd service cluster has ip as 172.17.8.101 ...
       # worker nodes has ip as 172.17.8.201 ...
-      ip = "172.17.8.#{i+100}"
+      ip = "172.17.8.#{i+10}"
       config.vm.network :private_network, ip: ip
 
       # Uncomment below to enable NFS for sharing the host machine into the coreos-vagrant VM.
